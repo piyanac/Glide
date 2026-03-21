@@ -40,11 +40,6 @@ Sources/Glide
   Models/      Alarm data types and date resolution logic
   Services/    Scheduling, alert presentation, menu state, preferences
   UI/          Menu bar UI, editing flows, preferences, blocking alert
-Scripts/
-  package_app.sh     Build and assemble a .app bundle
-  notarize_app.sh    Sign, notarize, and staple the app
-Tests/GlideTests
-  Core behavior tests for alarms and hover/preview logic
 ```
 
 ## Run Locally
