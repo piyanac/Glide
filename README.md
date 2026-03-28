@@ -31,7 +31,7 @@ Glide focuses on fast alarm creation with minimal friction:
 
 - macOS 13 or later
 - Xcode 16+ recommended
-- English literacy. 
+- English / Traditional Chinese literacy. 
 
 ## Project Structure
 
