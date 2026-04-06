@@ -6,7 +6,7 @@ For old Mac users, this may be a replacement for now-gone ChronoSlider Lite.
 
 ## ⚠️ Disclaimer
 
-- This app is a cognitive automation product. Involved models include: GPT 5.4.
+- This app is a product of cognitive automation. Involved models include: GPT 5.4.
 - We urge the avoidance of using this app. We are not responsible for any result. We do not promise anything.
 
 ## Why Glide
