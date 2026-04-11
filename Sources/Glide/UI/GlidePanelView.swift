@@ -21,7 +21,7 @@ struct GlidePanelView: View {
     @State private var hoveredSelection: AlarmHoverSelection?
     @State private var hoveredMessageSelection: MessageSelection?
     @State private var committedSelection: AlarmDraft.Selection?
-    @State private var selectedPreset = "Alarm"
+    @State private var selectedPreset = AppStrings.defaultAlarmTitle
     @State private var customMessage = ""
     @State private var soundEnabled = true
     @State private var selectedSound: AlarmSound = .glass
@@ -56,7 +56,7 @@ struct GlidePanelView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
-            selectedPreset = availablePresetTexts.first ?? "Alarm"
+            selectedPreset = availablePresetTexts.first ?? AppStrings.defaultAlarmTitle
             soundEnabled = preferences.playSoundByDefault
             selectedSound = preferences.defaultSound
         }
@@ -88,7 +88,7 @@ struct GlidePanelView: View {
                 onActivate: {
                     guard let draftSelection = hoveredSelection?.draftSelection else { return }
                     committedSelection = draftSelection
-                    hoveredMessageSelection = .preset(availablePresetTexts.first ?? "Alarm")
+                    hoveredMessageSelection = .preset(availablePresetTexts.first ?? AppStrings.defaultAlarmTitle)
                     step = .messageSelection
                 }
             )
@@ -104,7 +104,7 @@ struct GlidePanelView: View {
                 onActivate: {
                     guard let draftSelection = hoveredSelection?.draftSelection else { return }
                     committedSelection = draftSelection
-                    hoveredMessageSelection = .preset(availablePresetTexts.first ?? "Alarm")
+                    hoveredMessageSelection = .preset(availablePresetTexts.first ?? AppStrings.defaultAlarmTitle)
                     step = .messageSelection
                 }
             )
@@ -166,7 +166,7 @@ struct GlidePanelView: View {
                     hoveredMessageSelection = nil
                 },
                 onActivate: {
-                    selectedPreset = availablePresetTexts.first ?? "Alarm"
+                    selectedPreset = availablePresetTexts.first ?? AppStrings.defaultAlarmTitle
                     step = .customize
                 }
             )
@@ -174,10 +174,13 @@ struct GlidePanelView: View {
     }
 
     private var timePreviewOverlay: some View {
-        let preview = hoveredSelection?.preview(now: Date()) ?? AlarmHoverPreview(title: "--:--")
+        let preview = hoveredSelection?.preview(
+            now: Date(),
+            preferHourMinuteDisplayUnderFiveHours: preferences.showDurationsUnderFiveHoursAsHourMinute
+        ) ?? AlarmHoverPreview(title: AppStrings.previewPlaceholder)
 
         return centralPreview(
-            label: "Set an alarm at",
+            label: AppStrings.previewTimeLabel,
             value: preview.title,
             valueSize: 46
         )
@@ -185,7 +188,7 @@ struct GlidePanelView: View {
 
     private var messagePreviewOverlay: some View {
         centralPreview(
-            label: "Set message to",
+            label: AppStrings.previewMessageLabel,
             value: hoveredMessagePreview,
             valueSize: 40
         )
@@ -222,9 +225,9 @@ struct GlidePanelView: View {
         return VStack(alignment: .leading, spacing: 18) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Customize Message")
+                    Text(AppStrings.customizeMessage)
                         .font(.system(size: 28, weight: .bold))
-                    Text("\(selection.title) · ends \(previewDate.formatted(date: .abbreviated, time: .shortened))")
+                    Text(AlarmTextFormatter.customizeSummary(selection: selection, previewDate: previewDate))
                         .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(.secondary)
                 }
@@ -242,16 +245,16 @@ struct GlidePanelView: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                Text("Custom Message")
+                Text(AppStrings.customMessage)
                     .font(.headline)
-                TextField("Alarm", text: $customMessage, axis: .vertical)
+                TextField(AppStrings.messagePlaceholder, text: $customMessage, axis: .vertical)
                     .textFieldStyle(.roundedBorder)
                     .lineLimit(3, reservesSpace: true)
             }
 
-            Toggle("Play Sound", isOn: $soundEnabled)
+            Toggle(AppStrings.playSound, isOn: $soundEnabled)
 
-            Picker("Sound", selection: $selectedSound) {
+            Picker(AppStrings.sound, selection: $selectedSound) {
                 ForEach(AlarmSound.allCases) { sound in
                     Text(sound.displayName).tag(sound)
                 }
@@ -259,14 +262,14 @@ struct GlidePanelView: View {
             .disabled(!soundEnabled)
 
             HStack {
-                Button("Back") {
+                Button(AppStrings.back) {
                     step = .messageSelection
                 }
                 .buttonStyle(.bordered)
 
                 Spacer()
 
-                Button("Create Alarm") {
+                Button(AppStrings.createAlarm) {
                     let draft = AlarmDraft(
                         selection: selection,
                         selectedPreset: selectedPreset,
@@ -300,13 +303,13 @@ struct GlidePanelView: View {
     private var hoveredMessagePreview: String {
         switch hoveredMessageSelection {
         case .cancel:
-            return "Cancel"
+            return AppStrings.cancel
         case let .preset(message):
             return message
         case .customize:
-            return "Customize..."
+            return AppStrings.customize
         case .none:
-            return availablePresetTexts.first ?? "Alarm"
+            return availablePresetTexts.first ?? AppStrings.defaultAlarmTitle
         }
     }
 
@@ -315,7 +318,7 @@ struct GlidePanelView: View {
             .map(\.text)
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
-        return texts.isEmpty ? ["Alarm"] : texts
+        return texts.isEmpty ? [AppStrings.defaultAlarmTitle] : texts
     }
 
     private func messagePresetSelection(for normalizedX: Double) -> MessageSelection {

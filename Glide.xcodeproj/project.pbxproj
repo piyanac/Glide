@@ -26,6 +26,11 @@
 		A10000010000000000000011 /* MenuBarRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001010000000000000011 /* MenuBarRootView.swift */; };
 		A10000010000000000000012 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001010000000000000012 /* PreferencesView.swift */; };
 		A10000010000000000000013 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10001010000000000000013 /* Assets.xcassets */; };
+		A10000010000000000000014 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A10001010000000000000016 /* en.lproj */; };
+		A10000010000000000000015 /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A10001010000000000000017 /* zh-Hant.lproj */; };
+		A10000010000000000000016 /* AppStatePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001010000000000000018 /* AppStatePersistence.swift */; };
+		A10000010000000000000017 /* AppHelpCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001010000000000000019 /* AppHelpCommands.swift */; };
+		A10000010000000000000018 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A1000101000000000000001A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +54,12 @@
 		A10001010000000000000012 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		A10001010000000000000013 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A10001010000000000000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10001010000000000000015 /* Glide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Glide.entitlements; sourceTree = "<group>"; };
+		A10001010000000000000016 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
+		A10001010000000000000017 /* zh-Hant.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "zh-Hant.lproj"; sourceTree = "<group>"; };
+		A10001010000000000000018 /* AppStatePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStatePersistence.swift; sourceTree = "<group>"; };
+		A10001010000000000000019 /* AppHelpCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHelpCommands.swift; sourceTree = "<group>"; };
+		A1000101000000000000001A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A10002010000000000000001 /* Glide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Glide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -76,7 +87,9 @@
 			children = (
 				A10004010000000000000004 /* ../Sources/Glide */,
 				A10004010000000000000005 /* ../Sources/Glide/Resources */,
+				A10001010000000000000015 /* Glide.entitlements */,
 				A10001010000000000000014 /* Info.plist */,
+				A1000101000000000000001A /* PrivacyInfo.xcprivacy */,
 			);
 			path = Glide;
 			sourceTree = "<group>";
@@ -104,6 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				A10001010000000000000013 /* Assets.xcassets */,
+				A10001010000000000000016 /* en.lproj */,
+				A10001010000000000000017 /* zh-Hant.lproj */,
 			);
 			path = ../Sources/Glide/Resources;
 			sourceTree = "<group>";
@@ -129,6 +144,7 @@
 				A1000101000000000000000A /* AlarmStore.swift */,
 				A1000101000000000000000B /* AlertPresenter.swift */,
 				A1000101000000000000000C /* AppPreferences.swift */,
+				A10001010000000000000018 /* AppStatePersistence.swift */,
 				A1000101000000000000000D /* MenuStateController.swift */,
 			);
 			path = Services;
@@ -137,6 +153,7 @@
 		A10004010000000000000008 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				A10001010000000000000019 /* AppHelpCommands.swift */,
 				A1000101000000000000000E /* AlarmEditView.swift */,
 				A1000101000000000000000F /* BlockingAlertView.swift */,
 				A10001010000000000000010 /* GlidePanelView.swift */,
@@ -178,7 +195,6 @@
 				TargetAttributes = {
 					A10005010000000000000001 = {
 						CreatedOnToolsVersion = 26.0;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -188,6 +204,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hant",
 				Base,
 			);
 			mainGroup = A10004010000000000000001;
@@ -206,6 +223,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10000010000000000000013 /* Assets.xcassets in Resources */,
+				A10000010000000000000014 /* en.lproj in Resources */,
+				A10000010000000000000018 /* PrivacyInfo.xcprivacy in Resources */,
+				A10000010000000000000015 /* zh-Hant.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +247,8 @@
 				A1000001000000000000000A /* AlarmStore.swift in Sources */,
 				A1000001000000000000000B /* AlertPresenter.swift in Sources */,
 				A1000001000000000000000C /* AppPreferences.swift in Sources */,
+				A10000010000000000000016 /* AppStatePersistence.swift in Sources */,
+				A10000010000000000000017 /* AppHelpCommands.swift in Sources */,
 				A1000001000000000000000E /* AlarmEditView.swift in Sources */,
 				A1000001000000000000000F /* BlockingAlertView.swift in Sources */,
 				A10000010000000000000001 /* GlideApp.swift in Sources */,
@@ -246,7 +268,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = 3LZ88LRMZ4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -264,7 +286,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = 3LZ88LRMZ4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -281,22 +303,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = Glide/Glide.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_TEAM = 88F69BNSJ9;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Glide/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Glide;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = party.piyan.Glide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
@@ -307,22 +332,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = Glide/Glide.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 59;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 88F69BNSJ9;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Glide/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Glide;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = party.piyan.Glide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;

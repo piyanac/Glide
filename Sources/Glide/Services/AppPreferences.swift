@@ -2,9 +2,22 @@ import Foundation
 
 @MainActor
 final class AppPreferences: ObservableObject {
-    @Published var playSoundByDefault = true
-    @Published var defaultSound: AlarmSound = .glass
-    @Published var messagePresets = AlarmMessagePreset.defaults
+    @Published var playSoundByDefault: Bool
+    @Published var defaultSound: AlarmSound
+    @Published var showDurationsUnderFiveHoursAsHourMinute: Bool
+    @Published var messagePresets: [AlarmMessagePreset]
+
+    init(
+        playSoundByDefault: Bool = true,
+        defaultSound: AlarmSound = .glass,
+        showDurationsUnderFiveHoursAsHourMinute: Bool = false,
+        messagePresets: [AlarmMessagePreset] = AlarmMessagePreset.defaults
+    ) {
+        self.playSoundByDefault = playSoundByDefault
+        self.defaultSound = defaultSound
+        self.showDurationsUnderFiveHoursAsHourMinute = showDurationsUnderFiveHoursAsHourMinute
+        self.messagePresets = messagePresets.isEmpty ? AlarmMessagePreset.defaults : messagePresets
+    }
 
     func addPreset(_ text: String) {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)

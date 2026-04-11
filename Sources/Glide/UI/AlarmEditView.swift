@@ -19,20 +19,20 @@ struct AlarmEditView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Edit Alarm")
+            Text(AppStrings.editAlarm)
                 .font(.system(size: 24, weight: .bold))
 
             Text(alarm.detailText(referenceDate: Date()))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
-            TextField("Alarm", text: $message, axis: .vertical)
+            TextField(AppStrings.messagePlaceholder, text: $message, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
                 .lineLimit(3, reservesSpace: true)
 
-            Toggle("Play Sound", isOn: $soundEnabled)
+            Toggle(AppStrings.playSound, isOn: $soundEnabled)
 
-            Picker("Sound", selection: $selectedSound) {
+            Picker(AppStrings.sound, selection: $selectedSound) {
                 ForEach(AlarmSound.allCases) { sound in
                     Text(sound.displayName).tag(sound)
                 }
@@ -40,14 +40,14 @@ struct AlarmEditView: View {
             .disabled(!soundEnabled)
 
             HStack {
-                Button("Cancel") {
+                Button(AppStrings.cancel) {
                     dismiss()
                 }
                 .buttonStyle(.bordered)
 
                 Spacer()
 
-                Button("Save") {
+                Button(AppStrings.save) {
                     store.updateAlarm(
                         id: alarm.id,
                         message: message,

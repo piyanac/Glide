@@ -2,7 +2,11 @@ import Foundation
 
 @MainActor
 final class AlarmStore: ObservableObject {
-    @Published private(set) var alarms: [Alarm] = []
+    @Published private(set) var alarms: [Alarm]
+
+    init(alarms: [Alarm] = []) {
+        self.alarms = alarms
+    }
 
     var sortedAlarms: [Alarm] {
         alarms
@@ -12,6 +16,7 @@ final class AlarmStore: ObservableObject {
 
     func addAlarm(_ alarm: Alarm) {
         alarms.append(alarm)
+        alarms.sort { $0.triggerDate < $1.triggerDate }
     }
 
     func alarm(id: UUID) -> Alarm? {
@@ -20,7 +25,7 @@ final class AlarmStore: ObservableObject {
 
     func updateAlarm(id: UUID, message: String, sound: AlarmSound?) {
         guard let index = alarms.firstIndex(where: { $0.id == id }) else { return }
-        alarms[index].message = message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Alarm" : message
+        alarms[index].message = message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? AppStrings.defaultAlarmTitle : message
         alarms[index].sound = sound
     }
 

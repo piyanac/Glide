@@ -9,14 +9,24 @@ struct GlideApp: App {
     @StateObject private var addAlarmPresenter: AddAlarmPresenter
     @StateObject private var scheduler: AlarmScheduler
     @StateObject private var menuState: MenuStateController
+    private let persistenceCoordinator: AppStatePersistenceCoordinator
 
     init() {
-        let preferences = AppPreferences()
-        let store = AlarmStore()
+        let persistence = AppStatePersistence()
+        let snapshot = persistence.load()
+        let preferences = AppPreferences(
+            playSoundByDefault: snapshot.playSoundByDefault,
+            defaultSound: snapshot.defaultSound,
+            showDurationsUnderFiveHoursAsHourMinute: snapshot.showDurationsUnderFiveHoursAsHourMinute,
+            messagePresets: snapshot.messagePresets
+        )
+        let store = AlarmStore(alarms: snapshot.alarms)
         let alertPresenter = AlertPresenter(store: store)
         let addAlarmPresenter = AddAlarmPresenter(store: store, preferences: preferences)
         let scheduler = AlarmScheduler(store: store, alertPresenter: alertPresenter)
         let menuState = MenuStateController(store: store)
+        let persistenceCoordinator = AppStatePersistenceCoordinator(persistence: persistence)
+        persistenceCoordinator.connect(store: store, preferences: preferences)
 
         _preferences = StateObject(wrappedValue: preferences)
         _store = StateObject(wrappedValue: store)
@@ -24,6 +34,7 @@ struct GlideApp: App {
         _addAlarmPresenter = StateObject(wrappedValue: addAlarmPresenter)
         _scheduler = StateObject(wrappedValue: scheduler)
         _menuState = StateObject(wrappedValue: menuState)
+        self.persistenceCoordinator = persistenceCoordinator
 
         NSApplication.shared.setActivationPolicy(.accessory)
     }
@@ -42,11 +53,14 @@ struct GlideApp: App {
         }
         .menuBarExtraStyle(.window)
 
-        Window("Preferences", id: "preferences") {
+        Window(AppStrings.preferencesTitle, id: "preferences") {
             PreferencesView()
                 .environmentObject(preferences)
                 .frame(minWidth: 420, idealWidth: 420, minHeight: 360, idealHeight: 380)
         }
         .windowResizability(.contentSize)
+        .commands {
+            AppHelpCommands()
+        }
     }
 }

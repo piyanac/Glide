@@ -38,7 +38,7 @@ private final class AddAlarmWindowController: NSWindowController, NSWindowDelega
     init(store: AlarmStore, preferences: AppPreferences, onClose: @escaping () -> Void) {
         self.onClose = onClose
 
-        let window = NSWindow(
+        let window = AddAlarmWindow(
             contentRect: NSScreen.main?.frame ?? NSRect(x: 0, y: 0, width: 1440, height: 900),
             styleMask: [.borderless],
             backing: .buffered,
@@ -83,4 +83,9 @@ private final class AddAlarmWindowController: NSWindowController, NSWindowDelega
     func windowWillClose(_ notification: Notification) {
         onClose()
     }
+}
+
+private final class AddAlarmWindow: NSWindow {
+    override var canBecomeKey: Bool { true }
+    override var canBecomeMain: Bool { true }
 }

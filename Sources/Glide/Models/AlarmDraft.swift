@@ -6,12 +6,11 @@ struct AlarmDraft {
         case clockTime(hour: Int, minute: Int)
 
         var title: String {
-            switch self {
-            case let .countdown(duration):
-                return "\(duration.selectionDurationText) countdown"
-            case let .clockTime(hour, minute):
-                return String(format: "Alarm at %02d:%02d", hour, minute)
-            }
+            title(language: .current)
+        }
+
+        func title(language: AppLanguage) -> String {
+            AlarmTextFormatter.selectionTitle(self, language: language)
         }
 
         var triggerDate: Date {
@@ -43,21 +42,21 @@ struct AlarmDraft {
     var soundEnabled: Bool
     var selectedSound: AlarmSound
 
-    func resolvedMessage() -> String {
+    func resolvedMessage(language: AppLanguage = .current) -> String {
         let trimmedCustom = customMessage.trimmingCharacters(in: .whitespacesAndNewlines)
         if !trimmedCustom.isEmpty {
             return trimmedCustom
         }
 
         let trimmedPreset = selectedPreset.trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmedPreset.isEmpty ? "Alarm" : trimmedPreset
+        return trimmedPreset.isEmpty ? AppStrings.defaultAlarmTitle : trimmedPreset
     }
 
-    func makeAlarm(now: Date = Date()) -> Alarm {
+    func makeAlarm(now: Date = Date(), language: AppLanguage = .current) -> Alarm {
         Alarm(
             kind: selection.kind(),
             triggerDate: selection.previewDate(now: now),
-            message: resolvedMessage(),
+            message: resolvedMessage(language: language),
             sound: soundEnabled ? selectedSound : nil
         )
     }

@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct MenuBarRootView: View {
+    private static let alarmRowHeight: CGFloat = 68
+    private static let alarmListMaxHeight: CGFloat = 240
+
     @Environment(\.openWindow) private var openWindow
     @EnvironmentObject private var store: AlarmStore
     @EnvironmentObject private var addAlarmPresenter: AddAlarmPresenter
@@ -12,7 +15,7 @@ struct MenuBarRootView: View {
             Button {
                 addAlarmPresenter.show()
             } label: {
-                Label("Add Alarm", systemImage: "plus.circle.fill")
+                Label(AppStrings.addAlarm, systemImage: "plus.circle.fill")
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
@@ -39,7 +42,7 @@ struct MenuBarRootView: View {
                     }
                     .padding(.vertical, 2)
                 }
-                .frame(maxHeight: 240)
+                .frame(height: alarmListHeight)
             }
 
             Divider()
@@ -54,7 +57,7 @@ struct MenuBarRootView: View {
 
                 Spacer()
 
-                Button("Quit") {
+                Button(AppStrings.quit) {
                     NSApp.terminate(nil)
                 }
             }
@@ -65,6 +68,10 @@ struct MenuBarRootView: View {
             AlarmEditView(alarm: alarm)
         }
     }
+
+    private var alarmListHeight: CGFloat {
+        min(CGFloat(store.sortedAlarms.count) * Self.alarmRowHeight, Self.alarmListMaxHeight)
+    }
 }
 
 private struct EmptyAlarmStateView: View {
@@ -73,9 +80,9 @@ private struct EmptyAlarmStateView: View {
             Image(systemName: "alarm")
                 .font(.system(size: 28, weight: .semibold))
                 .foregroundStyle(.secondary)
-            Text("No Active Alarms")
+            Text(AppStrings.noActiveAlarms)
                 .font(.system(size: 16, weight: .semibold))
-            Text("Create a countdown or direct-time alarm from the button above.")
+            Text(AppStrings.emptyAlarmDescription)
                 .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

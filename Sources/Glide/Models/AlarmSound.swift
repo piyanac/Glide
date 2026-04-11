@@ -15,7 +15,9 @@ enum AlarmSound: String, CaseIterable, Codable, Identifiable {
 
     var id: String { rawValue }
 
-    var displayName: String { rawValue }
+    var displayName: String {
+        AlarmTextFormatter.soundDisplayName(self)
+    }
 
     func play() {
         NSSound(named: NSSound.Name(rawValue))?.play()

@@ -1,11 +1,27 @@
 import SwiftUI
 
 struct PreferencesView: View {
-    private enum Tab: String, CaseIterable, Identifiable {
-        case general = "General"
-        case messages = "Alarm Messages"
+    private static let appVersionDisplayText: String = {
+        let bundle = Bundle.main
+        let version = bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?"
+        let buildNumber = bundle.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "?"
+        return "\(AppStrings.appName) \(version)(\(buildNumber))"
+    }()
 
-        var id: String { rawValue }
+    private enum Tab: CaseIterable, Identifiable {
+        case general
+        case messages
+
+        var id: Self { self }
+
+        var title: String {
+            switch self {
+            case .general:
+                return AppStrings.generalTab
+            case .messages:
+                return AppStrings.alarmMessagesTab
+            }
+        }
     }
 
     @EnvironmentObject private var preferences: AppPreferences
@@ -15,9 +31,9 @@ struct PreferencesView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Picker("Tab", selection: $selectedTab) {
+            Picker(AppStrings.tabPickerLabel, selection: $selectedTab) {
                 ForEach(Tab.allCases) { tab in
-                    Text(tab.rawValue).tag(tab)
+                    Text(tab.title).tag(tab)
                 }
             }
             .pickerStyle(.segmented)
@@ -41,13 +57,21 @@ struct PreferencesView: View {
 
     private var generalTab: some View {
         Form {
-            Toggle("Play sound by default", isOn: $preferences.playSoundByDefault)
+            Toggle(AppStrings.playSoundByDefault, isOn: $preferences.playSoundByDefault)
+            Toggle(
+                AppStrings.showDurationsUnderFiveHoursAsHourMinute,
+                isOn: $preferences.showDurationsUnderFiveHoursAsHourMinute
+            )
 
-            Picker("Default sound", selection: $preferences.defaultSound) {
+            Picker(AppStrings.defaultSound, selection: $preferences.defaultSound) {
                 ForEach(AlarmSound.allCases) { sound in
                     Text(sound.displayName).tag(sound)
                 }
             }
+
+            Text(Self.appVersionDisplayText)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
         }
         .formStyle(.grouped)
     }
@@ -57,7 +81,7 @@ struct PreferencesView: View {
             List {
                 ForEach($preferences.messagePresets) { $preset in
                     HStack {
-                        TextField("Preset", text: $preset.text)
+                        TextField(AppStrings.presetPlaceholder, text: $preset.text)
                         Spacer()
                         Button(role: .destructive) {
                             preferences.removePreset(id: preset.id)
@@ -72,10 +96,10 @@ struct PreferencesView: View {
             }
 
             HStack {
-                TextField("New preset message", text: $newPresetText)
+                TextField(AppStrings.newPresetMessage, text: $newPresetText)
                     .textFieldStyle(.roundedBorder)
 
-                Button("Add") {
+                Button(AppStrings.add) {
                     preferences.addPreset(newPresetText)
                     newPresetText = ""
                 }

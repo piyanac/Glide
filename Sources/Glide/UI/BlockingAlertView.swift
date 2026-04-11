@@ -17,7 +17,7 @@ struct BlockingAlertView: View {
             .ignoresSafeArea()
 
             VStack(spacing: 24) {
-                Text("Alarm")
+                Text(AppStrings.alertHeader)
                     .font(.system(size: 22, weight: .medium))
                     .foregroundStyle(.white.opacity(0.75))
 
@@ -32,7 +32,7 @@ struct BlockingAlertView: View {
                     .foregroundStyle(.white.opacity(0.82))
 
                 Button(action: onDismiss) {
-                    Text("Dismiss")
+                    Text(AppStrings.dismiss)
                         .font(.system(size: 20, weight: .semibold))
                         .frame(width: 180)
                 }
