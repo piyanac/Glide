@@ -64,4 +64,4 @@ swift run Glide
 
 ## Contributions
 
-This repo does not accept contributions. Fork it as you like but don't ever bother the author.
+This repo does not accept contributions. Fork it as you like.
