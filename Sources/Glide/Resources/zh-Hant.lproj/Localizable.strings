@@ -15,8 +15,9 @@
 "menu.add_alarm" = "新增鬧鐘";
 "menu.empty.body" = "從上方按鈕建立倒數或指定時間的鬧鐘。";
 "menu.empty.title" = "目前沒有鬧鐘";
-"menu.help.privacy_policy" = "隱私權政策";
-"menu.help.support" = "Glide輔助說明";
+"menu.help.center" = "說明中心";
+"menu.help.support" = "提供意見或求助...";
+"menu.help.terms_policy" = "條款與政策";
 "menu.quit" = "結束";
 "panel.create_alarm" = "建立鬧鐘";
 "panel.custom_message.label" = "自訂訊息";

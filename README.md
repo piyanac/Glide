@@ -1,13 +1,13 @@
 # Glide
 
-Glide is a lightweight macOS menu bar alarm app built with SwiftUI. It helps you create quick countdowns or exact-time alarms, choose a message, and bring up a full-screen blocking alert when time is up.
+Glide is a lightweight macOS menu bar alarm app. It helps you create quick countdowns or exact-time alarms, choose a message, and bring up a full-screen blocking alert when time is up.
 
 For old Mac users, this may be a replacement for now-gone ChronoSlider Lite. 
 
 ## ⚠️ Disclaimer
 
 - This app is a product of cognitive automation. Involved models include: GPT 5.4.
-- We urge the avoidance of using this app. We are not responsible for any result. We do not promise anything.
+- We recommend you to download this app from [Mac App Store](https://apps.apple.com/tw/app/glide/id6761304969), so you get autoupdate.
 
 ## Why Glide
 
@@ -33,15 +33,6 @@ Glide focuses on fast alarm creation with minimal friction:
 - Xcode 16+ recommended
 - English / Traditional Chinese literacy. 
 
-## Project Structure
-
-```text
-Sources/Glide
-  Models/      Alarm data types and date resolution logic
-  Services/    Scheduling, alert presentation, menu state, preferences
-  UI/          Menu bar UI, editing flows, preferences, blocking alert
-```
-
 ## Run Locally
 
 ### Get from Release
@@ -59,8 +50,6 @@ Download signed & nortarized app from the Release section.
 ```bash
 swift run Glide
 ```
-
-
 
 ## Contributions
 

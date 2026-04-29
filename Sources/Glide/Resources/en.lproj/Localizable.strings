@@ -15,8 +15,9 @@
 "menu.add_alarm" = "Add Alarm";
 "menu.empty.body" = "Create a countdown or direct-time alarm from the button above.";
 "menu.empty.title" = "No Active Alarms";
-"menu.help.privacy_policy" = "Privacy Policy";
-"menu.help.support" = "Glide Support";
+"menu.help.center" = "Help Center";
+"menu.help.support" = "Send feedback / Request support...";
+"menu.help.terms_policy" = "Terms & Policy";
 "menu.quit" = "Quit";
 "panel.create_alarm" = "Create Alarm";
 "panel.custom_message.label" = "Custom Message";

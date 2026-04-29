@@ -22,14 +22,17 @@ struct AppHelpCommands: Commands {
         let links = AppHelpLinks.localized(for: .current)
 
         switch destination {
+        case .helpCenter:
+            NSWorkspace.shared.open(links.helpCenterURL)
         case .privacyPolicy:
-            NSWorkspace.shared.open(links.privacyPolicyURL)
+            NSWorkspace.shared.open(links.termsURL)
         case .support:
             NSWorkspace.shared.open(links.supportURL)
         }
     }
 
     private enum Destination {
+        case helpCenter
         case privacyPolicy
         case support
     }

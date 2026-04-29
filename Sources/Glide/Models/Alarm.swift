@@ -80,7 +80,7 @@ extension TimeInterval {
     }
 }
 
-enum AppLanguage: Equatable {
+enum AppLanguage: Hashable {
     case english
     case traditionalChinese
 
@@ -150,15 +150,27 @@ enum L10n {
         )
     }
 
+    private static let bundleCacheLock = NSLock()
+    nonisolated(unsafe) private static var bundleCache: [AppLanguage: Bundle] = [:]
+
     private static func localizedBundle(for language: AppLanguage?) -> Bundle {
+        guard let language else { return bundle }
+
+        bundleCacheLock.lock()
+        defer { bundleCacheLock.unlock() }
+
+        if let cached = bundleCache[language] {
+            return cached
+        }
+
         guard
-            let language,
             let path = bundle.path(forResource: language.localizationIdentifier, ofType: "lproj"),
             let localizedBundle = Bundle(path: path)
         else {
             return bundle
         }
 
+        bundleCache[language] = localizedBundle
         return localizedBundle
     }
 }
@@ -172,8 +184,13 @@ enum AppStrings {
     static var emptyAlarmDescription: String {
         L10n.string("menu.empty.body", default: "Create a countdown or direct-time alarm from the button above.")
     }
-    static var privacyPolicy: String { L10n.string("menu.help.privacy_policy", default: "Privacy Policy") }
-    static var glideSupport: String { L10n.string("menu.help.support", default: "Glide Support") }
+    static var helpCenter: String { L10n.string("menu.help.center", default: "Help Center") }
+    static var sendFeedbackOrRequestSupport: String {
+        L10n.string("menu.help.support", default: "Send feedback / Request support...")
+    }
+    static var termsAndPolicy: String { L10n.string("menu.help.terms_policy", default: "Terms & Policy") }
+    static var privacyPolicy: String { termsAndPolicy }
+    static var glideSupport: String { sendFeedbackOrRequestSupport }
     static var generalTab: String { L10n.string("prefs.tab.general", default: "General") }
     static var alarmMessagesTab: String { L10n.string("prefs.tab.messages", default: "Alarm Messages") }
     static var tabPickerLabel: String { L10n.string("prefs.tab.accessibility_label", default: "Tab") }

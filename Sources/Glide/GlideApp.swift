@@ -37,6 +37,7 @@ struct GlideApp: App {
         self.persistenceCoordinator = persistenceCoordinator
 
         NSApplication.shared.setActivationPolicy(.accessory)
+        scheduler.start()
     }
 
     var body: some Scene {
@@ -47,9 +48,6 @@ struct GlideApp: App {
                 .environmentObject(alertPresenter)
                 .environmentObject(addAlarmPresenter)
                 .environmentObject(menuState)
-                .task {
-                    scheduler.start()
-                }
         }
         .menuBarExtraStyle(.window)
 

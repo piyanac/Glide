@@ -63,20 +63,23 @@ struct AppStateSnapshot: Codable, Equatable {
 }
 
 struct AppHelpLinks {
-    let privacyPolicyURL: URL
+    let helpCenterURL: URL
+    let termsURL: URL
     let supportURL: URL
 
     static func localized(for language: AppLanguage) -> Self {
         switch language {
         case .traditionalChinese:
             return Self(
-                privacyPolicyURL: URL(string: "https://apps.piyan.party/zh-tw/terms")!,
-                supportURL: URL(string: "https://apps.piyan.party/zh-tw/support/glide")!
+                helpCenterURL: URL(string: "https://apps.piyan.party/zh-tw-help-center")!,
+                termsURL: URL(string: "https://apps.piyan.party/zh-tw/terms")!,
+                supportURL: URL(string: "https://apps.piyan.party/zh-tw/support")!
             )
         case .english:
             return Self(
-                privacyPolicyURL: URL(string: "https://apps.piyan.party/en/terms")!,
-                supportURL: URL(string: "https://apps.piyan.party/en/support/glide")!
+                helpCenterURL: URL(string: "https://apps.piyan.party/en-help-center")!,
+                termsURL: URL(string: "https://apps.piyan.party/en/terms")!,
+                supportURL: URL(string: "https://apps.piyan.party/en/support")!
             )
         }
     }
